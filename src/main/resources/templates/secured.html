@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Secured page</title>
+</head>
+<body>
+<h2>This page is secured</h2>
+<div>You logged in as:
+    <span th:text="${login}"></span> via
+    <span th:text="${provider}"></span></div>
+<div>
+    <a href="/index">Back to index</a>
+</div>
+</body>
+</html>
