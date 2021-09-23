@@ -1,6 +1,7 @@
 package ittep.restapidemo.controller;
 
 import ittep.restapidemo.security.GitHubUserInfo;
+import ittep.restapidemo.security.GoogleUserInfo;
 import ittep.restapidemo.security.UserInfo;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -28,6 +29,9 @@ public class PageController {
         UserInfo userInfo = null;
         if (provider.equalsIgnoreCase("github")) {
             userInfo = new GitHubUserInfo(oauth2User.getAttributes());
+        }
+        if (provider.equalsIgnoreCase("google")) {
+            userInfo = new GoogleUserInfo(oauth2User.getAttributes());
         }
         model.addAttribute("login", userInfo.getLogin());
         model.addAttribute("provider", provider);
