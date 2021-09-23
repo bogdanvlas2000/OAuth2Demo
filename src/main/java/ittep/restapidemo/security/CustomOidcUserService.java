@@ -4,39 +4,35 @@ import ittep.restapidemo.model.User;
 import ittep.restapidemo.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
-import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest;
+import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
-import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
-
 
 @Service
 @AllArgsConstructor
-public class CustomOAuth2UserService extends DefaultOAuth2UserService {
+public class CustomOidcUserService extends OidcUserService {
     private UserRepository userRepository;
 
     @Override
-    public OAuth2User loadUser(OAuth2UserRequest request) throws OAuth2AuthenticationException {
-        OAuth2User oauth2User = super.loadUser(request);
-
+    public OidcUser loadUser(OidcUserRequest request) throws OAuth2AuthenticationException {
+        OidcUser oidcUser = super.loadUser(request);
         try {
-            processOAuth2User(request, oauth2User);
-            return oauth2User;
+            processOidcUser(request, oidcUser);
+            return oidcUser;
         } catch (Exception ex) {
             // Throwing an instance of AuthenticationException will trigger the OAuth2AuthenticationFailureHandler
             throw new InternalAuthenticationServiceException(ex.getMessage(), ex.getCause());
         }
     }
 
-    private void processOAuth2User(OAuth2UserRequest request, OAuth2User oauth2User) {
+    private void processOidcUser(OidcUserRequest request, OidcUser oidcUser) {
         //github or google
         String provider = request.getClientRegistration().getRegistrationId();
         UserInfo userInfo = null;
-        if (provider.equals("github")) {
-            userInfo = new GitHubUserInfo(oauth2User.getAttributes());
+        if (provider.equalsIgnoreCase("google")) {
+            userInfo = new GoogleUserInfo(oidcUser.getAttributes());
         }
 
         boolean exists = userRepository.existsByLoginAndProvider(userInfo.getLogin(), provider);
