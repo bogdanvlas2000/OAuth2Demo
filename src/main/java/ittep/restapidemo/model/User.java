@@ -22,4 +22,10 @@ public class User {
 
     //github или google
     private String provider;
+
+    private String role;
+
+    private String password;
+
+    private boolean enabled;
 }

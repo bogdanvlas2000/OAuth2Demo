@@ -1,8 +1,8 @@
 package ittep.restapidemo.controller;
 
-import ittep.restapidemo.security.GitHubUserInfo;
-import ittep.restapidemo.security.GoogleUserInfo;
-import ittep.restapidemo.security.UserInfo;
+import ittep.restapidemo.model.GitHubUserInfo;
+import ittep.restapidemo.model.GoogleUserInfo;
+import ittep.restapidemo.model.UserInfo;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;

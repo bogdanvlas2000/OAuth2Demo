@@ -1,7 +1,9 @@
-package ittep.restapidemo.security;
+package ittep.restapidemo.service;
 
 import ittep.restapidemo.model.User;
 import ittep.restapidemo.repository.UserRepository;
+import ittep.restapidemo.model.GitHubUserInfo;
+import ittep.restapidemo.model.UserInfo;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -9,8 +11,6 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 
 @Service

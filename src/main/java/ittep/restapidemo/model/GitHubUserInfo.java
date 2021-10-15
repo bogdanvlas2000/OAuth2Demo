@@ -1,4 +1,4 @@
-package ittep.restapidemo.security;
+package ittep.restapidemo.model;
 
 import java.util.Map;
 

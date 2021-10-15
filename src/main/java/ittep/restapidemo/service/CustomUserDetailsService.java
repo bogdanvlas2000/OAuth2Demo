@@ -1,8 +1,9 @@
-package khpi.khpi_olympiad.service;
+package ittep.restapidemo.service;
 
-import khpi.khpi_olympiad.model.auth.User;
-import khpi.khpi_olympiad.model.auth.UserSecurity;
-import khpi.khpi_olympiad.repository.auth.UserRepository;
+import ittep.restapidemo.model.CustomUserDetails;
+import ittep.restapidemo.model.User;
+import ittep.restapidemo.repository.UserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -10,22 +11,18 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class UserSecurityService implements UserDetailsService {
+@AllArgsConstructor
+public class CustomUserDetailsService implements UserDetailsService {
 
     private UserRepository userRepository;
 
-
-    public UserSecurityService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
+        User user = userRepository.findByLogin(username);
         if (user == null) {
             throw new UsernameNotFoundException("No user with username: " + username);
         }
-        UserDetails principal = new UserSecurity(user);
+        UserDetails principal = new CustomUserDetails(user);
         return principal;
     }
 }
