@@ -1,4 +1,4 @@
 FROM openjdk:11
-COPY . ./
-ADD target/*.jar app.jar
+WORKDIR /usr/src/app
+COPY .  ./
 CMD ["java", "-jar", "app.jar"]
